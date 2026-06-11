@@ -190,6 +190,16 @@ const CARD = { background: S.surface, borderRadius: 12, padding: "18px 20px", bo
 
 // ── COMPONENTS ────────────────────────────────────────────────────────────────
 
+function SimTag() {
+  return (
+    <span style={{ fontSize:9, fontWeight:700, padding:"1px 6px", borderRadius:3,
+      background:"#1a1500", color:"#fbbf24", border:"1px solid #a16207",
+      verticalAlign:"middle", letterSpacing:"0.05em" }}>
+      SIMULATED
+    </span>
+  );
+}
+
 function KpiCard({ label, value, sub, color }) {
   return (
     <div style={{ ...CARD, textAlign: "center" }}>
@@ -237,6 +247,20 @@ export default function App() {
 
   return (
     <div style={{ fontFamily: "'IBM Plex Mono', 'Courier New', monospace", background: S.bg, minHeight: "100vh", color: S.text, padding: "20px 24px" }}>
+
+      {/* ── DISCLAIMER BANNER ── */}
+      <div style={{ background:"#1a1500", border:"1px solid #a16207", borderRadius:8, padding:"10px 16px",
+        marginBottom:16, display:"flex", alignItems:"center", gap:12 }}>
+        <span style={{ fontSize:15 }}>⚠</span>
+        <div>
+          <span style={{ color:"#fbbf24", fontWeight:700, fontSize:12 }}>RESEARCH PROTOTYPE — SIMULATED DEMO DATA</span>
+          <span style={{ color:"#92400e", fontSize:11, margin:"0 8px" }}>|</span>
+          <span style={{ color:"#d97706", fontSize:11 }}>
+            All metrics are modeled estimates derived from historical patterns (NASA VIIRS · MCA21 · GST filings).
+            Not intended for financial or policy decision-making without independent verification.
+          </span>
+        </div>
+      </div>
 
       {/* ── HEADER ── */}
       <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom: 20 }}>
@@ -296,7 +320,7 @@ export default function App() {
           <div style={{ display:"grid", gridTemplateColumns:"1.6fr 1fr", gap: 16 }}>
             <div style={CARD}>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom: 12 }}>
-                <h3 style={{ margin:0, fontSize:13, color:S.blue }}>National Average Stress — 2024</h3>
+                <h3 style={{ margin:0, fontSize:13, color:S.blue }}>National Average Stress — 2024 <SimTag /></h3>
                 <div style={{ display:"flex", gap:6 }}>
                   {["stress","Manufacturing","Textiles","FoodProcessing","RetailTrade"].map(m => (
                     <button key={m} onClick={() => setTrendMetric(m)}
@@ -324,7 +348,7 @@ export default function App() {
             </div>
 
             <div style={CARD}>
-              <h3 style={{ margin:"0 0 12px", fontSize:13, color:S.blue }}>Year-on-Year Comparison</h3>
+              <h3 style={{ margin:"0 0 12px", fontSize:13, color:S.blue }}>Year-on-Year Comparison <SimTag /></h3>
               <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={yoyData}>
                   <CartesianGrid strokeDasharray="3 3" stroke={S.border} />
@@ -342,7 +366,7 @@ export default function App() {
           {/* Row 2: State heatmap bar + Sector radar */}
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap: 16 }}>
             <div style={CARD}>
-              <h3 style={{ margin:"0 0 12px", fontSize:13, color:S.blue }}>State-Level Stress Index</h3>
+              <h3 style={{ margin:"0 0 12px", fontSize:13, color:S.blue }}>State-Level Stress Index <SimTag /></h3>
               <ResponsiveContainer width="100%" height={220}>
                 <BarChart data={stateStress} layout="vertical" margin={{ left:20 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke={S.border} horizontal={false} />
@@ -357,7 +381,7 @@ export default function App() {
             </div>
 
             <div style={CARD}>
-              <h3 style={{ margin:"0 0 12px", fontSize:13, color:S.blue }}>Multi-Signal Stress Radar — {sector}</h3>
+              <h3 style={{ margin:"0 0 12px", fontSize:13, color:S.blue }}>Multi-Signal Stress Radar — {sector} <SimTag /></h3>
               <ResponsiveContainer width="100%" height={220}>
                 <RadarChart data={radarData} margin={{ top:10, right:20, bottom:10, left:20 }}>
                   <PolarGrid stroke={S.border} />
@@ -423,7 +447,7 @@ export default function App() {
 
                 {/* 3-line trend */}
                 <div style={CARD}>
-                  <h3 style={{ margin:"0 0 12px", fontSize:13, color:S.blue }}>{selDistrict.name} — Monthly Signals 2024</h3>
+                  <h3 style={{ margin:"0 0 12px", fontSize:13, color:S.blue }}>{selDistrict.name} — Monthly Signals 2024 <SimTag /></h3>
                   <ResponsiveContainer width="100%" height={200}>
                     <LineChart data={trendData}>
                       <CartesianGrid strokeDasharray="3 3" stroke={S.border} />
@@ -440,7 +464,7 @@ export default function App() {
 
                 {/* Scatter: stress vs radiance */}
                 <div style={CARD}>
-                  <h3 style={{ margin:"0 0 12px", fontSize:13, color:S.blue }}>Stress vs Night Light — {selDistrict.name}</h3>
+                  <h3 style={{ margin:"0 0 12px", fontSize:13, color:S.blue }}>Stress vs Night Light — {selDistrict.name} <SimTag /></h3>
                   <ResponsiveContainer width="100%" height={160}>
                     <ScatterChart margin={{ top:5, right:20, bottom:5, left:0 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke={S.border} />
@@ -476,7 +500,7 @@ export default function App() {
 
           {/* Sector comparison bar */}
           <div style={CARD}>
-            <h3 style={{ margin:"0 0 12px", fontSize:13, color:S.blue }}>Sector Stress Comparison — Dec 2024</h3>
+            <h3 style={{ margin:"0 0 12px", fontSize:13, color:S.blue }}>Sector Stress Comparison — Dec 2024 <SimTag /></h3>
             <ResponsiveContainer width="100%" height={220}>
               <BarChart data={districts}>
                 <CartesianGrid strokeDasharray="3 3" stroke={S.border} />
@@ -492,7 +516,7 @@ export default function App() {
 
           {/* All-sector trend */}
           <div style={CARD}>
-            <h3 style={{ margin:"0 0 12px", fontSize:13, color:S.blue }}>All Sectors — Monthly Stress Trend 2024</h3>
+            <h3 style={{ margin:"0 0 12px", fontSize:13, color:S.blue }}>All Sectors — Monthly Stress Trend 2024 <SimTag /></h3>
             <ResponsiveContainer width="100%" height={220}>
               <LineChart data={nationalTrend}>
                 <CartesianGrid strokeDasharray="3 3" stroke={S.border} />
@@ -549,6 +573,8 @@ export default function App() {
       {/* Footer */}
       <div style={{ textAlign:"center", marginTop:24, color:S.muted, fontSize:10, letterSpacing:"0.04em" }}>
         BUILT BY KRISH MAKHIJA · MSME PULSE v1.0 · MODEL AUC 0.9853 · DATA: NASA VIIRS + MCA21 + GST · LEAD TIME 6.8 MONTHS
+        <br />
+        <span style={{ color: S.amber }}>MODEL ESTIMATES — NOT FOR FINANCIAL DECISIONS · SIMULATED DEMO DATA · RESEARCH PROTOTYPE</span>
       </div>
     </div>
   );
